@@ -1,5 +1,6 @@
 import socket
 import os
+from faker import Faker
 
 #ソケットドメイン（使用する通信の形式）と、ソケットタイプ(アプリケーションの通信する方法)を指定
 sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
@@ -24,9 +25,8 @@ while True:
 
     data  = connection.recv(16).decode("utf-8")
     print("Received: "+data)
-    message = input("What do you want to send?")
-
-    connection.sendall(message.encode())
+    fake = Faker()
+    connection.sendall(fake.email().encode())
 
     connection.close()
     print("Current connection has closed")
